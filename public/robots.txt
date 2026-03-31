@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# After deploy, set your canonical origin in Search Console and optionally uncomment:
+# Sitemap: https://YOUR_DOMAIN/sitemap.xml
