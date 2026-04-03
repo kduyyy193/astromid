@@ -3,7 +3,8 @@ import * as d3 from 'd3';
 import { ZODIAC_SIGNS } from '../data/astrologyData';
 
 interface BirthChartProps {
-  planetPositions: { [key: string]: number }; // Degrees (0-360)
+  planetPositions: { [key: string]: number };
+  size?: 'default' | 'compact';
 }
 
 /** Shortest angular distance in degrees (0–180). */
@@ -16,14 +17,14 @@ const MIN_PLANET_SEPARATION_DEG = 16;
 const PLANET_RADIAL_STEP = 12;
 const PLANET_BASE_INSET = 60;
 
-const BirthChart: React.FC<BirthChartProps> = ({ planetPositions }) => {
+const BirthChart: React.FC<BirthChartProps> = ({ planetPositions, size = 'default' }) => {
   const svgRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
     if (!svgRef.current) return;
 
-    const width = 400;
-    const height = 400;
+    const width = size === 'compact' ? 280 : 400;
+    const height = size === 'compact' ? 280 : 400;
     const radius = Math.min(width, height) / 2 - 20;
 
     const svg = d3.select(svgRef.current)
@@ -64,7 +65,7 @@ const BirthChart: React.FC<BirthChartProps> = ({ planetPositions }) => {
         .attr('text-anchor', 'middle')
         .attr('dominant-baseline', 'middle')
         .attr('fill', 'rgba(255, 255, 255, 0.6)')
-        .attr('font-size', '14px')
+        .attr('font-size', size === 'compact' ? '11px' : '14px')
         .text((ZODIAC_SIGNS as any)[sign].symbol);
     });
 
@@ -114,12 +115,12 @@ const BirthChart: React.FC<BirthChartProps> = ({ planetPositions }) => {
         .attr('y', -10)
         .attr('text-anchor', 'middle')
         .attr('fill', '#fff')
-        .attr('font-size', '10px')
+        .attr('font-size', size === 'compact' ? '8px' : '10px')
         .attr('font-family', 'monospace')
         .text(planet);
     }
 
-  }, [planetPositions]);
+  }, [planetPositions, size]);
 
   return (
     <div className="flex justify-center items-center p-4 bg-black/20 rounded-full backdrop-blur-sm border border-white/5">

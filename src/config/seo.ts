@@ -14,35 +14,35 @@ export interface SeoMeta {
 
 export const SEO_META: Record<SeoLocale, SeoMeta> = {
   en: {
-    pageTitle: 'AstroMind | AI Birth Chart & Astrology Reading (EN/VI)',
+    pageTitle: 'AstroMind | Birth Chart & Astrology Reading (EN/VI)',
     description:
-      'Free AI astrology app: birth chart wheel, date/time/place input, and Gemini-powered natal insights. Switch English or Vietnamese—personalized, grounded readings.',
+      'Free natal chart app: birth date, time, and place, tropical wheel, and grounded sign-by-sign readings. English or Vietnamese—personalized and calm.',
     keywords: [
-      'AI astrology',
       'birth chart online',
       'natal chart',
-      'Gemini astrology',
-      'horoscope AI',
+      'tropical astrology',
       'zodiac reading',
       'AstroMind',
       'personalized horoscope',
       'English Vietnamese astrology',
+      'rising sign',
+      'sun moon chart',
     ],
     ogSiteName: 'AstroMind',
   },
   vi: {
-    pageTitle: 'AstroMind | Lá Số & Chiêm Tinh AI (Gemini) — Việt / English',
+    pageTitle: 'AstroMind | Lá Số & Chiêm Tinh — Việt / English',
     description:
-      'Ứng dụng chiêm tinh AI: nhập ngày giờ nơi sinh, xem vòng cung hoàng đạo, nhận lời giải cá nhân bằng Gemini. Giao diện song ngữ Việt–Anh, miễn phí.',
+      'Nhập ngày giờ nơi sinh, xem vòng cung hoàng đạo tropical và lời giải theo từng cung. Giao diện song ngữ Việt–Anh, miễn phí.',
     keywords: [
-      'chiêm tinh AI',
       'lá số tử vi online',
-      'giải sao AI',
+      'chiêm tinh',
       'hoàng đạo',
-      'Gemini chiêm tinh',
+      'cung mọc',
       'AstroMind',
       'tử vi song ngữ',
-      'horoscope AI tiếng Việt',
+      'giải sao',
+      'lá số sinh',
     ],
     ogSiteName: 'AstroMind',
   },

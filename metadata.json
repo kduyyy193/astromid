@@ -1,5 +1,5 @@
 {
-  "name": "AstroMind - AI Astrology Guide",
-  "description": "An advanced astrology application using astronomical data and AI for personalized interpretations.",
+  "name": "AstroMind — Astrology Guide",
+  "description": "Birth charts from date, time, and place—tropical wheel and personal readings in English or Vietnamese.",
   "requestFramePermissions": []
 }

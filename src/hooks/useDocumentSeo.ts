@@ -51,7 +51,7 @@ export function useDocumentSeo(locale: SeoLocale) {
 
     const ogImage = `${base}${SEO_OG_IMAGE_PATH}`;
     setMeta('property', 'og:image', ogImage);
-    setMeta('property', 'og:image:alt', meta.ogSiteName + ' — AI astrology');
+    setMeta('property', 'og:image:alt', meta.ogSiteName + ' — astrology birth chart');
 
     setMeta('name', 'twitter:card', 'summary_large_image');
     setMeta('name', 'twitter:title', meta.pageTitle);
@@ -82,13 +82,13 @@ export function useDocumentSeo(locale: SeoLocale) {
           ? [
               'Nhập ngày, giờ, nơi sinh',
               'Biểu đồ vòng cung (D3)',
-              'Giải thích bằng Google Gemini',
+              'Lời giải theo các cung trên lá số',
               'Giao diện song ngữ Việt / English',
             ]
           : [
               'Birth date, time, and place',
               'Zodiac wheel chart (D3)',
-              'Interpretation via Google Gemini',
+              'Sign-by-sign reading from your chart',
               'English / Vietnamese UI',
             ],
     };
