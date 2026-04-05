@@ -7,7 +7,12 @@ const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || "" });
 type Language = "en" | "vi";
 type ChartValue = string | number | null | undefined;
 type ChartInput = Record<string, ChartValue>;
-const DEFAULT_MODEL = "gemini-3-flash-preview";
+
+const MODELS = [
+  "gemini-2.5-pro",
+  "gemini-2.5-flash",
+  "gemini-3-flash-preview"
+];
 const MAX_ATTEMPTS = 4;
 
 type SolarSystemPlanet =
@@ -148,21 +153,33 @@ function isRetryableError(error: unknown) {
 async function generateWithRetry(prompt: string) {
   let lastError: unknown;
 
-  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt += 1) {
-    try {
-      const response = await ai.models.generateContent({
-        model: DEFAULT_MODEL,
-        contents: prompt
-      });
-      return response.text;
-    } catch (error) {
-      lastError = error;
-      if (attempt === MAX_ATTEMPTS || !isRetryableError(error)) {
-        throw error;
+  for (const model of MODELS) {
+    for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+      try {
+        const response = await ai.models.generateContent({
+          model,
+          contents: prompt
+        });
+
+        return response.text;
+
+      } catch (error) {
+        lastError = error;
+
+        if (!isRetryableError(error)) {
+          break;
+        }
+
+        if (attempt === MAX_ATTEMPTS) {
+          break;
+        }
+
+        const delayMs = 1000 * Math.pow(2, attempt - 1);
+        await sleep(delayMs);
       }
-      const delayMs = 1000 * Math.pow(2, attempt - 1);
-      await sleep(delayMs);
     }
+
+    console.warn(`Model failed → fallback to next: ${model}`);
   }
 
   throw lastError;
@@ -309,14 +326,14 @@ async function getAstrologyInterpretationCore(birthData: any, chartData: ChartIn
   const placementLines =
     language === "vi"
       ? PLACEMENT_ORDER.map((k) => {
-          const s = placements[k];
-          const vi = s ? tropicalSignLabelVi(s) : null;
-          return `${PLACEMENT_LABEL_VI[k]}: ${s ? `${s} (${vi ?? s})` : "không xác định"}`;
-        }).join("\n")
+        const s = placements[k];
+        const vi = s ? tropicalSignLabelVi(s) : null;
+        return `${PLACEMENT_LABEL_VI[k]}: ${s ? `${s} (${vi ?? s})` : "không xác định"}`;
+      }).join("\n")
       : PLACEMENT_ORDER.map((k) => {
-          const s = placements[k];
-          return `${PLACEMENT_LABEL_EN[k]}: ${s ?? "unknown"}`;
-        }).join("\n");
+        const s = placements[k];
+        return `${PLACEMENT_LABEL_EN[k]}: ${s ?? "unknown"}`;
+      }).join("\n");
 
   const languageInstruction =
     language === "vi"
