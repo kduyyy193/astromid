@@ -64,7 +64,7 @@ const TRANSLATIONS = {
     generateCouple: 'Xem Tương Hợp Cặp Đôi',
     loadingTitle: 'Kết Nối Với Đại Vũ Trụ',
     loadingSub: 'Các hành tinh đang xoay chuyển. Lắng nghe tiếng vọng từ hư không...',
-    back: 'Trở lại cõi thực',
+    back: 'Trở lại',
     resultTitle: 'Định Mệnh Tinh Trần',
     resultCoupleTitle: 'Bản Đồ Tình Duyên',
     footer: 'Trên sao, dưới vậy. Những vì sao chỉ dẫn cho kẻ biết lắng nghe.',

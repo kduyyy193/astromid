@@ -9,9 +9,9 @@ type ChartValue = string | number | null | undefined;
 type ChartInput = Record<string, ChartValue>;
 
 const MODELS = [
+  "gemini-3-flash-preview",
   "gemini-2.5-pro",
   "gemini-2.5-flash",
-  "gemini-3-flash-preview"
 ];
 const MAX_ATTEMPTS = 4;
 
@@ -178,8 +178,6 @@ async function generateWithRetry(prompt: string) {
         await sleep(delayMs);
       }
     }
-
-    console.warn(`Model failed → fallback to next: ${model}`);
   }
 
   throw lastError;
@@ -395,13 +393,11 @@ IMPORTANT RULES:
 - ONLY use the structured tropical sign profile for each placement (from the JSON below). Paraphrase briefly; do not add new labels or claims outside this material. Do not quote entire lists; synthesize.
 - GROUND TRUTH placements below are authoritative: every stated sign must match exactly in each subsection; do not duplicate them as a summary table at the top.
 - If profile data for a placement is null, still state the sign from GROUND TRUTH and give a minimal reading without inventing traits.
-- Output **must start with** the first Markdown heading of section 1 (e.g. \`## 1.\` or \`## Big Three\`). **Forbidden:** greetings, addressing the user by name, welcome lines, "dưới đây là...", "based on your birth data", meta commentary about the analysis.
+- Output **must start with** the first Markdown heading of section 1 (e.g. \`## 1.\` or \`## Big Three\`). **Forbidden:** greetings, addressing the user by name, welcome lines, "dưới đây là...", "based on your birth data", nerver use ul or li tag maker, meta commentary about the analysis.
 
 Birth context (no name — do not invent or guess a name):
 ${JSON.stringify(birthContext, null, 2)}
 
-GROUND TRUTH — tropical sign per point (authoritative):
-${placementLines}
 
 GROUND TRUTH — machine-readable:
 ${JSON.stringify(placements, null, 2)}
